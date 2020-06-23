@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/divyeshpujari/mongodb-sanitize.git"
   },
-  "keywords": ["mongo", "mongodb", "mongoose", "middleware", "sanitize", "sanitizer", "express middleware"],
+  "keywords": ["mongo", "mongodb", "mongoose", "middleware", "sanitize", "sanitizer", "express middleware", "security"],
   "author": "Divyeshkumar Pujari (pujaridivyesh@gmail.com)",
   "license": "ISC",
   "bugs": {
