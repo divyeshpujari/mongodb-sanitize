@@ -10,14 +10,23 @@
     "type": "git",
     "url": "git+https://github.com/divyeshpujari/mongodb-sanitize.git"
   },
-  "keywords": ["mongo", "mongodb", "mongoose", "middleware", "sanitize", "sanitizer", "express middleware", "security"],
+  "keywords": [
+    "mongo",
+    "mongodb",
+    "mongoose",
+    "middleware",
+    "sanitize",
+    "sanitizer",
+    "express middleware",
+    "security"
+  ],
   "author": "Divyeshkumar Pujari (pujaridivyesh@gmail.com)",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/divyeshpujari/mongodb-sanitize/issues"
   },
   "homepage": "https://github.com/divyeshpujari/mongodb-sanitize#readme",
-  "dependencies": {
+  "devDependencies": {
     "mocha": "^8.0.1"
   }
 }
