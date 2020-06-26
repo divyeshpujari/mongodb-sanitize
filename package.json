@@ -1,6 +1,6 @@
 {
   "name": "mongodb-sanitize",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This repository provide a functionality to sanitize the data that going to use for Insert into Mongodb collection, use for an query on a mongodb.",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,9 @@
     "sanitize",
     "sanitizer",
     "express middleware",
-    "security"
+    "security",
+    "injection",
+    "inject"
   ],
   "author": "Divyeshkumar Pujari (pujaridivyesh@gmail.com)",
   "license": "ISC",
