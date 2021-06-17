@@ -16,14 +16,14 @@ const REGEX_TO_MATCH = /(^\$.)|((.+)?\.\$.)/gm;
  * @return {Boolean} - Return the boolean result that Object/Array is sanitized for mongodb operation or not.
  */
 const isSanitized = (objectToSanitize) => {
-	let isSanitized = true;
-	JSON.stringify(objectToSanitize, (key, value) => {
-		if (key.match(REGEX_TO_MATCH)) {
-			isSanitized = false;
-		}
-		return value;
-	});
-	return isSanitized;
+  let isSanitized = true;
+  JSON.stringify(objectToSanitize, (key, value) => {
+    if (key.match(REGEX_TO_MATCH)) {
+      isSanitized = false;
+    }
+    return value;
+  });
+  return isSanitized;
 };
 
 /**
@@ -36,10 +36,13 @@ const isSanitized = (objectToSanitize) => {
  * @return {Object | Array} - Return sanitized object or array for mongodb operation
  */
 const sanitize = (objectToSanitize) => {
-	const sanitizedString = JSON.stringify(objectToSanitize, (key, value) => {
-		return key.match(REGEX_TO_MATCH) ? undefined : value;
-	});
-	return JSON.parse(sanitizedString);
+  if (!objectToSanitize) {
+    return;
+  }
+  const sanitizedString = JSON.stringify(objectToSanitize, (key, value) => {
+    return key.match(REGEX_TO_MATCH) ? undefined : value;
+  });
+  return JSON.parse(sanitizedString);
 };
 
 /**
@@ -51,15 +54,18 @@ const sanitize = (objectToSanitize) => {
  *
  * @author Divyeshkumar Pujari
  */
-const sanitizeMiddleWare = (propertiesToSanitize = ['body', 'params', 'query']) => {
-	return (req, res, next) => {
-		propertiesToSanitize.forEach((prop) => {
-			req[prop] = sanitize(req[prop]);
-		});
-		next();
-	}
+const sanitizeMiddleWare = (
+  propertiesToSanitize = ['body', 'params', 'query'],
+) => {
+  return (req, res, next) => {
+    propertiesToSanitize.forEach((prop) => {
+      req[prop] = sanitize(req[prop]);
+    });
+    next();
+  };
 };
 
 module.exports = sanitizeMiddleWare;
 module.exports.sanitize = sanitize;
 module.exports.isSanitized = isSanitized;
+module.exports.sanitizeMiddleWare = sanitizeMiddleWare;

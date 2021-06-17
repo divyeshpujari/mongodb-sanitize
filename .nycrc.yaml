@@ -1,0 +1,11 @@
+all: true
+extension: ['.js']
+excludeNodeModules: true
+branches: 99,
+lines: 99,
+functions: 99,
+statements: 99
+sourceMap: true
+check-coverage: true
+reporter: ['lcov', 'text-summary']
+exclude: ['test.js', 'coverage/**/*.js']

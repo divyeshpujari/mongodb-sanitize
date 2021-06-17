@@ -1,0 +1,5 @@
+.circleci
+.github
+.nyc_output
+coverage
+node_module
