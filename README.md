@@ -22,6 +22,10 @@ In short, it's provide some amount of security at code level to avoid any inject
 ```javascript
 npm i --save mongodb-sanitize
 ```
+or
+```javascript
+yarn add mongodb-sanitize
+```
 
 # How to use as middleware
 

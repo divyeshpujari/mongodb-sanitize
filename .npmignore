@@ -2,3 +2,5 @@
 .nyc_output
 coverage
 .circleci
+node_modules
+.eslintrc.json
