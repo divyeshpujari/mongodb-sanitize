@@ -4,6 +4,7 @@
 
 ![npm](https://img.shields.io/npm/v/mongodb-sanitize)
 ![node-current](https://img.shields.io/node/v/mongodb-sanitize)
+![GitHub branch checks state](https://img.shields.io/github/checks-status/divyeshpujari/mongodb-sanitize/master?label=build)
 ![npm](https://img.shields.io/npm/dw/mongodb-sanitize)
 ![GitHub issues](https://img.shields.io/github/issues/divyeshpujari/mongodb-sanitize)
 ![NPM](https://img.shields.io/npm/l/mongodb-sanitize)
