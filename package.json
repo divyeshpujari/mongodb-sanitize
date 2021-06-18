@@ -1,6 +1,6 @@
 {
   "name": "mongodb-sanitize",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Helper or middleware to sanitize json object to prevent query selector injections for MongoDB",
   "main": "index.js",
   "types": "index.d.ts",
