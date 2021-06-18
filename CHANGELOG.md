@@ -33,3 +33,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Updated
 - Testcase to cover 100% test coverage
 - Readme document with branding badges
+
+## [2.2.0] - 2021-06-19
+
+### Added
+- Added the typescript support
+- Added the sanitize option replaceBy to replace the selector
+
+### Updated
+- Readme document and package.json with above new changes

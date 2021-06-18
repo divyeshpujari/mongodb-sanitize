@@ -32,8 +32,8 @@ describe('Test the mongodb-sanitize', () => {
         sanitizeResponse,
         expectedSanitize,
         `Sanitize have not worked properly for ${JSON.stringify(
-          objectToSanitize,
-        )}`,
+          objectToSanitize
+        )}`
       );
     });
 
@@ -52,8 +52,8 @@ describe('Test the mongodb-sanitize', () => {
         sanitizeResponse,
         expectedSanitize,
         `Sanitize have not worked properly for ${JSON.stringify(
-          objectToSanitize,
-        )}`,
+          objectToSanitize
+        )}`
       );
     });
 
@@ -74,8 +74,8 @@ describe('Test the mongodb-sanitize', () => {
         sanitizeResponse,
         expectedSanitize,
         `Sanitize have not worked properly for ${JSON.stringify(
-          objectToSanitize,
-        )}`,
+          objectToSanitize
+        )}`
       );
     });
 
@@ -83,7 +83,8 @@ describe('Test the mongodb-sanitize', () => {
      * @description - Test-case to make sure that any array of object where any key:value pair's key
      * include dotted with `$` like `abc.$or` will be remove.
      */
-    it('should be remove the key:value pair where key include dotted with `$` like `abc.$or` in array of object', () => {
+    it('should be remove the key:value pair where key include dotted with `$` ' +
+      'like `abc.$or` in array of object', () => {
       const objectToSanitize = [
         {
           'abc.$or': [{ a: 10 }],
@@ -96,8 +97,8 @@ describe('Test the mongodb-sanitize', () => {
         sanitizeResponse,
         expectedSanitize,
         `Sanitize have not worked properly for ${JSON.stringify(
-          objectToSanitize,
-        )}`,
+          objectToSanitize
+        )}`
       );
     });
 
@@ -113,14 +114,49 @@ describe('Test the mongodb-sanitize', () => {
         },
       ];
       const sanitizeResponse = sanitize(objectToSanitize);
-      const expectedSanitize = [{ name: 'Divyesh' }];
+      const expectedSanitize = [
+        {
+          name: 'Divyesh',
+        },
+      ];
 
       assert.deepStrictEqual(
         sanitizeResponse,
         expectedSanitize,
         `Sanitize have not worked properly for ${JSON.stringify(
-          objectToSanitize,
-        )}`,
+          objectToSanitize
+        )}`
+      );
+    });
+
+    /**
+     * @description - Test-case to handle all scenarios like start with `$`, include `.$`,
+     * and sanitize data with replaceBy
+     */
+    it('should be test all the scenarios like start with `$`, include `.$`, ' +
+      'and sanitize data with replaceBy', () => {
+      const objectToSanitize = [
+        {
+          'abc.$or': [{ a: 10 }],
+          $match: { a: 10 },
+          name: 'Divyesh',
+        },
+      ];
+      const sanitizeResponse = sanitize(objectToSanitize, { replaceBy: '_' });
+      const expectedSanitize = [
+        {
+          abc_$or: [{ a: 10 }],
+          _match: { a: 10 },
+          name: 'Divyesh',
+        },
+      ];
+
+      assert.deepStrictEqual(
+        sanitizeResponse,
+        expectedSanitize,
+        `Sanitize have not worked properly for ${JSON.stringify(
+          objectToSanitize
+        )}`
       );
     });
   });
@@ -146,8 +182,8 @@ describe('Test the mongodb-sanitize', () => {
         isSanitizedObject,
         expectedResult,
         `isSanitized have not worked properly for ${JSON.stringify(
-          objectToSanitize,
-        )}`,
+          objectToSanitize
+        )}`
       );
     });
 
@@ -165,8 +201,8 @@ describe('Test the mongodb-sanitize', () => {
         isSanitizedObject,
         expectedResult,
         `isSanitized have not worked properly for ${JSON.stringify(
-          objectToSanitize,
-        )}`,
+          objectToSanitize
+        )}`
       );
     });
 
@@ -187,8 +223,8 @@ describe('Test the mongodb-sanitize', () => {
         isSanitizedObject,
         expectedResult,
         `isSanitized have not worked properly for ${JSON.stringify(
-          objectToSanitize,
-        )}`,
+          objectToSanitize
+        )}`
       );
     });
 
@@ -209,8 +245,8 @@ describe('Test the mongodb-sanitize', () => {
         isSanitizedObject,
         expectedResult,
         `isSanitized have not worked properly for ${JSON.stringify(
-          objectToSanitize,
-        )}`,
+          objectToSanitize
+        )}`
       );
     });
 
@@ -230,10 +266,24 @@ describe('Test the mongodb-sanitize', () => {
         isSanitizedObject,
         expectedResult,
         `isSanitized have not worked properly for ${JSON.stringify(
-          objectToSanitize,
-        )}`,
+          objectToSanitize
+        )}`
       );
     });
+
+    /**
+     * @description Test case to make sure that isSanitized method return true when undefined value pass
+     */
+    it('should be return true when undefined value pass', () => {
+      const isSanitizedObject = isSanitized(undefined);
+      const expectedResult = true;
+
+      assert.equal(
+        isSanitizedObject,
+        expectedResult,
+        `isSanitized have not worked properly for "undefined"`
+      );
+    })
   });
 
   /**
@@ -244,7 +294,8 @@ describe('Test the mongodb-sanitize', () => {
    */
   describe('TestSuit for sanitizeMiddleWare', () => {
     /**
-     * @description - Test-case to handle all scenarios like start with `$`, include `.$`, and sanitize data for request body
+     * @description - Test-case to handle all scenarios like start with `$`, include `.$`,
+     * and sanitize data for request body
      */
     it('should be test all the scenarios like start with `$`, include `.$`, and sanitize data', () => {
       const objectToSanitize = [
@@ -267,7 +318,79 @@ describe('Test the mongodb-sanitize', () => {
       assert.deepStrictEqual(
         request.body,
         expectedSanitize,
-        `Sanitize have not worked properly for ${JSON.stringify(request.body)}`,
+        `Sanitize have not worked properly for ${JSON.stringify(request.body)}`
+      );
+    });
+
+    /**
+     * @description - Test-case to handle all scenarios like start with `$`, include `.$`,
+     * and sanitize data for request body with replaceBy
+     */
+    it('should be test all the scenarios like start with `$`, include `.$`,' +
+      ' and sanitize data with replaceBy', () => {
+      const objectToSanitize = [
+        {
+          'abc.$or': [{ a: 10 }],
+          $match: { a: 10 },
+          name: 'Divyesh',
+        },
+      ];
+      const request = {
+        body: objectToSanitize,
+      };
+      const response = {};
+      const next = () => {};
+
+      const middleware = sanitizeMiddleWare(['body'], { replaceBy: '_' });
+      middleware(request, response, next);
+      const expectedSanitize = [
+        {
+          abc_$or: [{ a: 10 }],
+          _match: { a: 10 },
+          name: 'Divyesh',
+        },
+      ];
+
+      assert.deepStrictEqual(
+        request.body,
+        expectedSanitize,
+        `Sanitize have not worked properly for ${JSON.stringify(request.body)}`
+      );
+    });
+
+    /**
+     * @description - Test-case to handle all scenarios like start with `$`, include `.$`,
+     * and sanitize data for request body with replaceBy `$`
+     */
+    it('should be test all the scenarios like start with `$`, include `.$`, ' +
+      'and sanitize data with replaceBy `$`', () => {
+      const objectToSanitize = [
+        {
+          'abc.$or': [{ a: 10 }],
+          $match: { a: 10 },
+          name: 'Divyesh',
+        },
+      ];
+      const request = {
+        body: objectToSanitize,
+      };
+      const response = {};
+      const next = () => {};
+
+      const middleware = sanitizeMiddleWare(['body'], { replaceBy: '$' });
+      middleware(request, response, next);
+      const expectedSanitize = [
+        {
+          abc$$or: [{ a: 10 }],
+          $match: { a: 10 },
+          name: 'Divyesh',
+        },
+      ];
+
+      assert.deepStrictEqual(
+        request.body,
+        expectedSanitize,
+        `Sanitize have not worked properly for ${JSON.stringify(request.body)}`
       );
     });
   });

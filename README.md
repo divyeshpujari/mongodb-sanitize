@@ -27,6 +27,10 @@ or
 yarn add mongodb-sanitize
 ```
 
+Or CDN Reference
+- [unpkg mongodb-sanitize](https://unpkg.com/browse/mongodb-sanitize/)
+- [jsdelivr mongodb-sanitize](https://cdn.jsdelivr.net/npm/mongodb-sanitize/index.min.js)
+
 # How to use as middleware
 
 Set as the middleware like below example:
@@ -41,7 +45,18 @@ const app = express();
 app.use(mongodbSanitize());
 ```
 
-If you want to sanitize on custom fields then you can configure the middleware as below:
+With typescript 
+
+```typescript
+import express from 'express';
+import {sanitizeMiddleWare} from 'mongodb-sanitize';
+
+const app = express();
+
+app.use(sanitizeMiddleWare());
+```
+
+If you want to sanitize on custom fields and options then you can configure the middleware as below:
 
 ```javascript
 const express = require('express');
@@ -49,21 +64,55 @@ const mongodbSanitize = require('mongodb-sanitize');
 
 const app = express();
 
-app.use(mongodbSanitize(['body', 'query']));
+app.use(mongodbSanitize(['body', 'query'], {replaceBy: '#'}));
+```
+
+With typescript
+
+```typescript
+import express from 'express';
+import {sanitizeMiddleWare} from 'mongodb-sanitize';
+
+const app = express()
+
+app.use(sanitizeMiddleWare(['body'], {replaceBy: '#'}))
 ```
 
 Note:- Here, sanitize operation should be performed on only two fields(`body`, `query`) of request.
 
 # How to use as separate method
 
-Here, you can see the example that how to use sanitize method separately
+Here, you can see the example that how to use sanitize method separately without options
 
 ```javascript
 const { sanitize } = require('mongodb-sanitize');
 
-const sanitizedObject = sanitize(<SOME_OBJECT_OR_ARRAY>);
+const sanitizedObject = sanitize(<OBJECT_OR_ARRAY_TO_SANITIZE>);
 ```
 
+With typescript
+
+```typescript
+import {sanitize} from 'mongodb-sanitize';
+
+const sanitizedObject:any = sanitize(<OBJECT_OR_ARRAY_TO_SANITIZE>);
+```
+
+With options
+
+```javascript
+const { sanitize } = require('mongodb-sanitize');
+
+const sanitizedObject = sanitize(<SOME_OBJECT_OR_ARRAY>, {replaceBy: <string>});
+```
+
+With typescript
+
+```typescript
+import {sanitize} from 'mongodb-sanitize';
+
+const sanitizedObject:any = sanitize(<OBJECT_OR_ARRAY_TO_SANITIZE>, {replaceBy: <string>});
+```
 # How to use `isSanitized` method
 
 `isSanitized` method used to check that is the pass object/array in argument is sanitize or not for mongodb operations.
@@ -71,5 +120,13 @@ const sanitizedObject = sanitize(<SOME_OBJECT_OR_ARRAY>);
 ```javascript
 const { isSanitized } = require('mongodb-sanitize');
 
-const checkSanitization = isSanitized(<SOME_OBJECT_OR_ARRAY>);
+const isSanitize = isSanitized(<OBJECT_OR_ARRAY_TO_SANITIZE>);
+```
+
+With typescript
+
+```typescript
+import {isSanitized} from 'mongodb-sanitize';
+
+const isSanitize: boolean = isSanitized(<OBJECT_OR_ARRAY_TO_SANITIZE>);
 ```
